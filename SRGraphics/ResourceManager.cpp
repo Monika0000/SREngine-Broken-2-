@@ -12,7 +12,7 @@ bool SpaRcle::Graph::ResourceManager::RemoveMesh(Mesh* mesh) {
 			m_count_meshes--;
 			delete mesh;
 			return true;
-		}
+		} 
 	}
 	return false;
 }
