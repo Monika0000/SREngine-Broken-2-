@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="Debug.h" />
+    <ClInclude Include="Utils.h" />
+    <ClInclude Include="SRFile.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="SRString.h" />
+    <ClInclude Include="EventsManager.h" />
+    <ClInclude Include="pch.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphUtils.h" />
+    <ClInclude Include="WindowFormat.h" />
+    <ClInclude Include="SafeArray.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Debug.cpp" />
+    <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="SRFile.cpp" />
+    <ClCompile Include="SRString.cpp" />
+    <ClCompile Include="EventsManager.cpp" />
+    <ClCompile Include="pch.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphUtils.cpp" />
+    <ClCompile Include="Input.cpp" />
+    <ClCompile Include="SafeArray.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>{90cddf7d-0513-4733-b616-b8e2c2f6367e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

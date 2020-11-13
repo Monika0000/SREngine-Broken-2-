@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>{07779e61-19b1-426b-b490-5e303279852d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{b32a5020-9dcf-4c35-bb3f-72f38e16b003}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window">
+      <UniqueIdentifier>{7ab37dfc-9be9-4f00-85d9-e3c877bd1b30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render">
+      <UniqueIdentifier>{db8a106a-1ba4-40bc-97ec-6425fa75ae18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Graph">
+      <UniqueIdentifier>{6f0566e8-380e-4f9d-9aa7-66c27f6d3638}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Game">
+      <UniqueIdentifier>{a3f2939e-3314-4e08-ab79-db78d9247d46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Memory">
+      <UniqueIdentifier>{195e086b-712e-4468-9c39-5feca83d6c5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Loaders">
+      <UniqueIdentifier>{e54387ea-40aa-4389-95a8-ebe3a1ce5bc0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="SRGraphics.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Render.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Resources\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Resources\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Resources\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Resources\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="IResource.h">
+      <Filter>Resources\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="SRGraphics.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Render.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Resources\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Resources\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Resources\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Resources\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp" />
+  </ItemGroup>
+</Project>
