@@ -3,6 +3,7 @@
 #include <vector>
 #include <mutex>
 #include <cassert>
+#include <functional>
 
 namespace SpaRcle {
     namespace Helper {
@@ -10,7 +11,8 @@ namespace SpaRcle {
         class SafeArray {
             std::mutex      m_lock;
             std::vector<T>  m_elements;
-            size_t          m_size = 0;
+            size_t          m_size  = 0;
+            size_t          m_t     = 0;
         public:
             T& operator[](size_t index)
             {
@@ -19,6 +21,19 @@ namespace SpaRcle {
                 T& val = m_elements[index];
                 m_lock.unlock();
                 return val;
+            }
+
+            template <typename V> T* Find(std::function<bool(const T&, const V&)> f, V v) {
+                T* res = nullptr;
+                m_lock.lock();
+                for (m_t = 0; m_t < m_size; m_t++) {
+                    if (f(m_elements[m_t], v)) {
+                        res = &m_elements[m_t];
+                        break;
+                    }
+                }
+                m_lock.unlock();
+                return res;
             }
 
             void Clear() {

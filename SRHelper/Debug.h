@@ -45,7 +45,7 @@ namespace SpaRcle {
 			inline static std::string	m_log_path					= "";
 			inline static std::ofstream m_file						= std::ofstream();
 		private:
-			static inline Level			m_level						= Level::Low;
+			static inline Level			m_level						= Level::Full;
 			static inline void InitColorTherme() {
 				if (!m_ColorThermeIsEnabled)
 					system("color 70");

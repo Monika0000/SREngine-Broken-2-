@@ -15,12 +15,18 @@ bool SpaRcle::Graph::ResourceManager::RemoveMesh(Mesh* mesh) {
 			return true;
 		} 
 	}
+
 	return false;
 }
 
 bool SpaRcle::Graph::ResourceManager::FreeResource(IResource* res) {
-	if (res->GetResourceName() == "Mesh")
-		RemoveMesh(static_cast<Mesh*>(res));
+	if (res->GetResourceName() == "Mesh") {
+		if (!RemoveMesh(static_cast<Mesh*>(res))) {
+			Debug::Error("ResourceManager::FreeResource() : failed remove mesh!");
+			Sleep(1);
+			return false;
+		}
+	}
 	else
 		return false;
 
@@ -42,7 +48,9 @@ void SpaRcle::Graph::ResourceManager::GC() {
 
 void SpaRcle::Graph::ResourceManager::Thread() {
 	while (m_isInit) {
+		m_mutex.lock();
 		GC();
+		m_mutex.unlock();
 	}
 }
 
@@ -53,35 +61,65 @@ void SpaRcle::Graph::ResourceManager::Destroy(IResource* res) {
 	m_resources_to_destroy.Add(res);
 }
 
-void SpaRcle::Graph::ResourceManager::SetDefaultGeometryShader(Shader* shader) noexcept {
-	m_default_geometry_shader = shader;
-}
-
-Shader* SpaRcle::Graph::ResourceManager::GetDefaultGeometryShader() noexcept {
-	return m_default_geometry_shader;
-}
+void SpaRcle::Graph::ResourceManager::SetDefaultGeometryShader(Shader* shader) noexcept { m_default_geometry_shader = shader; }
+Shader* SpaRcle::Graph::ResourceManager::GetDefaultGeometryShader() noexcept { return m_default_geometry_shader; }
 
 std::vector<Mesh*> SpaRcle::Graph::ResourceManager::LoadObj(std::string name) {
+	m_mutex.lock();
+
 	std::string path = SRString::MakePath(m_resource_folder + "\\Models\\" + name + ".obj");
-	
-	if (Debug::GetLevel() >= Debug::Level::Hight)
-		Debug::Log("ResourceManager::LoadObj() : loading \"" + name + "\" model...");
+	std::vector<Mesh*> result_meshes = std::vector<Mesh*>();
 
-	//std::vector<Mesh*> meshes = { new Mesh(ResourceManager::GetDefaultGeometryShader(), nullptr) }; //ObjLoader::Load(path);
-	std::vector<Mesh*> meshes = ObjLoader::Load(path);
+	bool is_exists = false;
+	int counter = 0;
 
-	if (meshes.size() == 0) {
-		Debug::Error("ResourceManager::LoadObj() : failed load \"" + name + "\" obj model!");
-		return {};
+ret:
+	Mesh** find_mesh = m_meshes.Find<std::string>(
+		[](Mesh* mesh, const std::string& v) -> bool
+		{
+			return mesh->GetResourceID() == v;
+		},
+		path + " - " +std::to_string(counter));
+
+	if (find_mesh != nullptr)  {
+		if (!is_exists) {
+			if (Debug::GetLevel() >= Debug::Level::Hight)
+				Debug::Log("ResourceManager::LoadObj() : copy \"" + name + "\" model...");
+			is_exists = true;
+		}
+
+		Mesh* copy = (*find_mesh)->Copy();
+
+		m_meshes.Add(copy);
+		m_count_meshes++;
+		result_meshes.push_back(copy);
+
+		counter++;
+		goto ret;
 	}
 
-	for (size_t t = 0; t < meshes.size(); t++) {
-		m_meshes.Add(meshes[t]);
-		m_count_meshes++;
+	if (!is_exists) {
+		if (Debug::GetLevel() >= Debug::Level::Hight)
+			Debug::Log("ResourceManager::LoadObj() : loading \"" + name + "\" model...");
+
+		result_meshes = ObjLoader::Load(path);
+
+		if (result_meshes.size() == 0) {
+			Debug::Error("ResourceManager::LoadObj() : failed load \"" + name + "\" obj model!");
+			m_mutex.unlock();
+			return {};
+		}
+
+		for (size_t t = 0; t < result_meshes.size(); t++) {
+			result_meshes[t]->m_res_id = (path + " - " + std::to_string(t));
+			m_meshes.Add(result_meshes[t]);
+			m_count_meshes++;
+		}
 	}
 
 	path.clear();
-	return meshes;
+	m_mutex.unlock();
+	return result_meshes;
 }
 
 bool SpaRcle::Graph::ResourceManager::Init(std::string resource_folder) {

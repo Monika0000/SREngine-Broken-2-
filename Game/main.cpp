@@ -42,12 +42,14 @@ int main(int argcp, char* argv) {
     std::thread task = std::thread([&]() {
         std::vector<Mesh*> meshes;
 
+        //std::vector<Mesh*> load = ResourceManager::LoadObj("Engine\\cube");
+
         while (true) {
             if (GetKey(KeyCode::F))
             {
                 meshes = ResourceManager::LoadObj("Engine\\cube");
                 for (size_t t = 0; t < meshes.size(); t++) {
-                    Debug::Log(std::to_string(meshes[t]->GetCountVertices()));
+                    //Debug::Log(std::to_string(meshes[t]->GetCountVertices()));
                     meshes[t]->Destroy();
                 }
             }

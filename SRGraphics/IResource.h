@@ -1,5 +1,6 @@
 #pragma once
 #include <windows.h>
+#include <string>
 
 namespace SpaRcle {
 	namespace Graph {
@@ -11,11 +12,13 @@ namespace SpaRcle {
 
 			};
 			~IResource() {
-
+				
 			}
 		protected:
 			bool				m_isDestroy		= false;
 			const char*			m_res_name		= "Unknown";
+			/* use only from resource manager */
+			std::string			m_res_id		= "NoId";
 		private:
 			/*
 				example:
@@ -29,6 +32,7 @@ namespace SpaRcle {
 			virtual bool Destroy() = 0;
 		public:
 			const char* GetResourceName() const noexcept { return m_res_name; }
+			const std::string GetResourceID() const noexcept { return m_res_id; }
 			void RemoveUsePoint() {
 				if (m_CountPossibleUses > 0)
 					m_CountPossibleUses--;

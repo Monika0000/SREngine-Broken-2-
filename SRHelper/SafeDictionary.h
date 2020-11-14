@@ -45,6 +45,16 @@ namespace SpaRcle {
                 m_size++;
                 m_lock.unlock();
             }
+
+            T* Find(K key) {
+                m_lock.lock();
+                auto find = m_elements.find(key);
+                T* res = nullptr;
+                if (find != m_elements.end())
+                    res = &find->second;
+                m_lock.unlock();
+                return res;
+            }
         };
     }
 }

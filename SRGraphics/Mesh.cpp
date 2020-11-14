@@ -13,6 +13,12 @@ SpaRcle::Graph::Mesh::~Mesh() {
 
 }
 
+SpaRcle::Graph::Mesh* SpaRcle::Graph::Mesh::Copy() {
+	Mesh* copy = new Mesh(m_shader, nullptr, "");
+	copy->m_res_id = m_res_id;
+	return copy;
+}
+
 void SpaRcle::Graph::Mesh::SetVertexArray(const std::vector<Vertex>& vertices) {
 	this->m_vertices		= vertices;
 	this->m_count_vertices	= m_vertices.size();

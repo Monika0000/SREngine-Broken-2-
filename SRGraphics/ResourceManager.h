@@ -13,17 +13,18 @@ namespace SpaRcle {
 	namespace Graph {
 		class ResourceManager {
 		private:
-			inline static size_t						m_count_meshes					= 0;
-			inline static SafeArray<Mesh*>				m_meshes						= SafeArray<Mesh*>();
+			inline static size_t								m_count_meshes					= 0;
+			inline static SafeArray<Mesh*>						m_meshes						= SafeArray<Mesh*>();
 
-			inline static SafeArray<IResource*>			m_resources_to_destroy			= SafeArray<IResource*>();
+			inline static SafeArray<IResource*>					m_resources_to_destroy			= SafeArray<IResource*>();
 
-			inline static Shader*						m_default_geometry_shader		= nullptr;
-			inline static std::string					m_resource_folder				= "DirNotSelected";
+			inline static Shader*								m_default_geometry_shader		= nullptr;
+			inline static std::string							m_resource_folder				= "DirNotSelected";
 		private:
-			inline static volatile bool					m_isInit						= false;
-			inline static volatile bool					m_isStop						= false;
-			inline static std::thread					m_thread						= std::thread();
+			inline static volatile bool							m_isInit						= false;
+			inline static volatile bool							m_isStop						= false;
+			inline static std::thread							m_thread						= std::thread();
+			inline static std::mutex							m_mutex							= std::mutex();
 		private:
 			static bool RemoveMesh(Mesh* mesh);
 

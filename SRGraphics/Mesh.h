@@ -16,9 +16,11 @@ namespace SpaRcle {
 			Mesh(Shader* shader, Material* material, std::string name = "Unnamed");
 			/* call only from GC */
 			~Mesh();
+			Mesh* Copy();
 		private:
 			Material*					m_material				= nullptr;
 			Render*						m_render				= nullptr;
+			Shader*						m_shader				= nullptr;
 			std::vector<Vertex>			m_vertices				= std::vector<Vertex>();
 			size_t						m_count_vertices		= 0;
 		public:
