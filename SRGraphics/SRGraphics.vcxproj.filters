@@ -54,7 +54,27 @@
     <ClInclude Include="IResource.h">
       <Filter>Resources\Memory</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Component.h">
+      <Filter>Resources\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjLoader.h">
+      <Filter>Resources\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>Resources\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Resources\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="VectorUtils.h">
+      <Filter>Resources\Memory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -81,6 +101,20 @@
     <ClCompile Include="ResourceManager.cpp">
       <Filter>Resources\Memory</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Component.cpp">
+      <Filter>Resources\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjLoader.cpp">
+      <Filter>Resources\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Resources\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

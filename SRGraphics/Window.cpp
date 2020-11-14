@@ -5,22 +5,21 @@ SpaRcle::Graph::Window::Window(const char* win_name, int argcp, char* argv, Rend
 {
 }
 
-bool SpaRcle::Graph::Window::Create()
-{
-	return false;
+bool SpaRcle::Graph::Window::Create() {
+	return true;
 }
 
 bool SpaRcle::Graph::Window::Init()
 {
-	return false;
+	return true;
 }
 
 bool SpaRcle::Graph::Window::Run()
 {
-	return false;
+	return true;
 }
 
 bool SpaRcle::Graph::Window::Close()
 {
-	return false;
+	return true;
 }

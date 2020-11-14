@@ -159,6 +159,7 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="SafeArray.h" />
+    <ClInclude Include="SafeDictionary.h" />
     <ClInclude Include="WindowFormat.h" />
     <ClInclude Include="SRFile.h" />
     <ClInclude Include="SRString.h" />
@@ -175,7 +176,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="SafeArray.cpp" />
     <ClCompile Include="SRFile.cpp" />
     <ClCompile Include="SRString.cpp" />
     <ClCompile Include="Utils.cpp" />

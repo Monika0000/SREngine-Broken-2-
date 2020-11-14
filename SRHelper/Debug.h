@@ -2,6 +2,7 @@
 #include "Utils.h"
 #include <fstream>
 #include <ostream>
+#include <mutex>
 
 namespace SpaRcle {
 	namespace Helper {
@@ -36,6 +37,7 @@ namespace SpaRcle {
 			Debug() { };
 			~Debug() { };
 		private:
+			inline static std::mutex	m_mutex						= std::mutex();
 			inline static HANDLE		m_console					= nullptr;
 			inline static bool			m_show_use_memory			= false;
 			inline static bool			m_ColorThermeIsEnabled		= false;
@@ -43,7 +45,7 @@ namespace SpaRcle {
 			inline static std::string	m_log_path					= "";
 			inline static std::ofstream m_file						= std::ofstream();
 		private:
-			static inline Level			m_level = Level::Low;
+			static inline Level			m_level						= Level::Low;
 			static inline void InitColorTherme() {
 				if (!m_ColorThermeIsEnabled)
 					system("color 70");
@@ -52,21 +54,13 @@ namespace SpaRcle {
 			static void Print(std::string& msg, Type type);
 		public:
 			static const Level GetLevel() { return m_level; }
-			void Init(std::string log_path, bool ShowUsedMemory);
-			int Stop() {
+			static void Init(std::string log_path, bool ShowUsedMemory);
+			static int Stop() {
 				std::string msg = "Debugger has been stopped.";
 				Print(msg, Type::Debug);
 				m_file.close();
 
 				return 0;
-			}
-		public:
-			static Debug* Get() {
-				static Debug* debug = nullptr;
-				if (!debug) {
-					debug = new Debug();
-				}
-				return debug;
 			}
 		public:
 			static void Log(std::string msg)		{ Print(msg, Type::Log);		}

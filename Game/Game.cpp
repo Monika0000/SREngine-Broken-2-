@@ -1,8 +1,15 @@
-﻿#include <Debug.h>
+﻿#define NOMINMAX
+#define GLEW_STATIC 1
+#define WINDOWLESS 1
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <Debug.h>
 #include <SRGraphics.h>
 #include <SRFile.h>
 #include <Window.h>
 #include <ResourceManager.h>
+#include <Input.h>
+#include <SRString.h>
 
 using namespace SpaRcle::Helper;
 using namespace SpaRcle::Graph;
@@ -10,8 +17,12 @@ using namespace SpaRcle::Graph;
 #pragma comment(lib, "SRHelper.lib")
 #pragma comment(lib, "SRGraphics.lib")
 
+#pragma comment(lib, "glew32s.lib")
+#pragma comment(lib, "glfw3.lib")
+#pragma comment(lib, "SOIL.lib")
+
 int main(int argcp, char* argv) {
-    Debug::Get()->Init(SRFile::GetPathToExe() + "\\log.txt", true);
+    Debug::Init(SRFile::GetPathToExe() + "\\log.txt", true);
     ResourceManager::Init(SRFile::GetPathToExe()+"../../Resources");
 
     Render* render = new Render();
@@ -29,9 +40,19 @@ int main(int argcp, char* argv) {
     );
 
     std::thread task = std::thread([&]() {
-        for (int i = 0; i < 1000; i++) {
-            std::vector<Mesh*> meshes = ResourceManager::LoadObj("example");
-            meshes[0]->Destroy();
+        std::vector<Mesh*> meshes;
+
+        while (true) {
+            if (GetKey(KeyCode::F))
+            {
+                meshes = ResourceManager::LoadObj("Engine\\cube");
+                for (size_t t = 0; t < meshes.size(); t++) {
+                    Debug::Log(std::to_string(meshes[t]->GetCountVertices()));
+                    meshes[t]->Destroy();
+                }
+            }
+            if (GetKeyDown(KeyCode::D))
+                ResourceManager::PrintMemoryDump();
         }
     });
 
@@ -52,5 +73,5 @@ int main(int argcp, char* argv) {
     if (task.joinable()) task.join();
 
     ResourceManager::Stop();
-    return Debug::Get()->Stop();
+    return Debug::Stop();
 }

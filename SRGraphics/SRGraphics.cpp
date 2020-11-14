@@ -14,7 +14,10 @@ bool SpaRcle::Graph::SRGraphics::Create(Window* window) {
 		return false;
 	}
 
-	//if (m_window->) 
+	if (!m_window->Create()) {
+		Debug::Error("SRGraphics::Create() : failed create window!");
+		return false;
+	}
 
 	m_IsCreate = true;
 
@@ -26,6 +29,11 @@ bool SpaRcle::Graph::SRGraphics::Init() {
 		Debug::Info("Initializing SpaRcle graphics...");
 	else {
 		Debug::Error("SpaRcle graphics already initialize!");
+		return false;
+	}
+
+	if (!m_window->Init()) {
+		Debug::Error("SRGraphics::Init() : failed init window!");
 		return false;
 	}
 
@@ -42,6 +50,11 @@ bool SpaRcle::Graph::SRGraphics::Run() {
 		return false;
 	}
 
+	if (!m_window->Run()) {
+		Debug::Error("SRGraphics::Run() : failed ran window!");
+		return false;
+	}
+
 	m_IsRun = true;
 
 	return true;
@@ -54,6 +67,8 @@ bool SpaRcle::Graph::SRGraphics::Close() {
 		Debug::Error("SpaRcle graphics already closed!");
 		return false;
 	}
+
+	m_window->Close();
 
 	m_IsClose = true;
 

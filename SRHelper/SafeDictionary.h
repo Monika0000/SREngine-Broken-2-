@@ -1,22 +1,21 @@
 #pragma once
 #include <iostream>
-#include <vector>
+#include <map>
 #include <mutex>
 #include <cassert>
 
 namespace SpaRcle {
     namespace Helper {
-        template <typename T>
-        class SafeArray {
+        template <typename K, typename T>
+        class SafeDictionary {
             std::mutex      m_lock;
-            std::vector<T>  m_elements;
+            std::map<K, T>  m_elements;
             size_t          m_size = 0;
         public:
-            T& operator[](size_t index)
+            T& operator[](K key)
             {
                 m_lock.lock();
-                assert(index >= m_size);
-                T& val = m_elements[index];
+                T& val = m_elements[key];
                 m_lock.unlock();
                 return val;
             }
@@ -33,17 +32,16 @@ namespace SpaRcle {
                 m_lock.unlock();
                 return t;
             }
-            void Remove(size_t index) {
+            void Remove(K key) {
                 m_lock.lock();
-                assert(index >= m_size);
-                m_elements.erase(m_elements.begin() + index);
+                m_elements.erase(key);
                 m_size--;
                 m_lock.unlock();
             }
 
-            void Add(T element) {
+            void Add(K key, T element) {
                 m_lock.lock();
-                m_elements.push_back(element);
+                m_elements.insert(std::make_pair(key, element));
                 m_size++;
                 m_lock.unlock();
             }

@@ -3,9 +3,8 @@
 
 namespace SpaRcle {
 	namespace Graph {
-		class Camera : public Component {
+		class Transform : public Component {
 
 		};
 	}
 }
-

@@ -13,6 +13,7 @@
     <ClInclude Include="GraphUtils.h" />
     <ClInclude Include="WindowFormat.h" />
     <ClInclude Include="SafeArray.h" />
+    <ClInclude Include="SafeDictionary.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Debug.cpp" />
@@ -25,7 +26,6 @@
     </ClCompile>
     <ClCompile Include="GraphUtils.cpp" />
     <ClCompile Include="Input.cpp" />
-    <ClCompile Include="SafeArray.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">

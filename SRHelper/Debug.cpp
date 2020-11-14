@@ -10,24 +10,25 @@ void SpaRcle::Helper::Debug::Init(std::string log_path, bool ShowUsedMemory) {
 
 	InitColorTherme();
 
-	this->m_log_path = log_path + "/log.txt";
+	m_log_path = log_path + "/log.txt";
 	if (SRFile::FileExists(m_log_path))
 		SRFile::Delete(m_log_path);
-	this->m_file.open(m_log_path);
+	m_file.open(m_log_path);
 
-	this->m_console = GetStdHandle(STD_OUTPUT_HANDLE);
+	m_console = GetStdHandle(STD_OUTPUT_HANDLE);
 
-	this->m_isInit = true;
-	this->m_show_use_memory = ShowUsedMemory;
+	m_isInit = true;
+	m_show_use_memory = ShowUsedMemory;
 
 	std::string msg = "Debugger has been initialized.";
 	Print(msg, Type::Debug);
 }
 
 void SpaRcle::Helper::Debug::Print(std::string& msg, Type type) {
-	static volatile bool use = false;
-ret:
-	if (!use) use = true; else goto ret;
+	m_mutex.lock();
+	//	static volatile bool use = false;
+//ret:
+//	if (!use) use = true; else goto ret;
 
 	static std::string pref		= "";
 	static ConsoleColor color	= ConsoleColor::Black;
@@ -61,5 +62,7 @@ ret:
 	if (m_file.is_open())
 		m_file << msg << std::endl;
 
-	use = false;
+	m_mutex.unlock();
+
+//	use = false;
 }

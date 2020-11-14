@@ -7,11 +7,15 @@ namespace SpaRcle {
 		class IResource {
 			friend class ResourceManager;
 		protected:
-			IResource(const char* name, unsigned short CountPossibleUses) : m_CountPossibleUses(CountPossibleUses), m_name(name) {
+			IResource(const char* name, unsigned short CountPossibleUses) : m_CountPossibleUses(CountPossibleUses), m_res_name(name) {
 
 			};
+			~IResource() {
+
+			}
 		protected:
-			bool				m_isDestroy = false;
+			bool				m_isDestroy		= false;
+			const char*			m_res_name		= "Unknown";
 		private:
 			/*
 				example:
@@ -21,11 +25,10 @@ namespace SpaRcle {
 				if (count uses == 0 and isDestroy == true) => delete pointer
 			*/
 			unsigned short		m_CountPossibleUses		= 0;
-			const char*			m_name					= "Unknown";
 		public:
 			virtual bool Destroy() = 0;
 		public:
-			const char* Name() const noexcept { return m_name; }
+			const char* GetResourceName() const noexcept { return m_res_name; }
 			void RemoveUsePoint() {
 				if (m_CountPossibleUses > 0)
 					m_CountPossibleUses--;
