@@ -13,16 +13,21 @@ namespace SpaRcle {
 		class Mesh : public IResource, public Component {
 			friend class ResourceManager;
 		public:
+			/*  аждый меш должен иметь свой уникальный материал */
 			Mesh(Shader* shader, Material* material, std::string name = "Unnamed");
 			/* call only from GC */
 			~Mesh();
 			Mesh* Copy();
 		private:
+			std::string					m_name					= "Unnamed";
+
 			Material*					m_material				= nullptr;
 			Render*						m_render				= nullptr;
 			Shader*						m_shader				= nullptr;
 			std::vector<Vertex>			m_vertices				= std::vector<Vertex>();
 			size_t						m_count_vertices		= 0;
+		public:
+			bool Draw();
 		public:
 			const size_t GetCountVertices() const noexcept { return m_count_vertices; }
 			void SetVertexArray(const std::vector<Vertex>& vertices);

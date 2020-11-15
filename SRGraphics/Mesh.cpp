@@ -6,18 +6,33 @@
 SpaRcle::Graph::Mesh::Mesh(Shader* shader, Material* material, std::string name) 
 	: IResource("Mesh", 0)
 {
-
+	this->m_shader		= shader;
+	this->m_render		= m_shader->GetRender();
+	this->m_material	= material;
+	this->m_name		= name;
 }
 
 SpaRcle::Graph::Mesh::~Mesh() {
-
+	if (m_material)
+		delete m_material;
+	m_material	= nullptr;
+	m_shader	= nullptr;
+	m_name.clear();
 }
 
 SpaRcle::Graph::Mesh* SpaRcle::Graph::Mesh::Copy() {
-	Mesh* copy = new Mesh(m_shader, nullptr, "");
-	copy->m_res_id = m_res_id;
-	//copy->m
+	Mesh* copy = new Mesh(m_shader, m_material, m_name);
+
+	copy->m_res_id	= m_res_id;
+	// m_res_name - setting automatic
+	copy->m_count_vertices = m_count_vertices;
+
 	return copy;
+}
+
+bool SpaRcle::Graph::Mesh::Draw()
+{
+	return false;
 }
 
 void SpaRcle::Graph::Mesh::SetVertexArray(const std::vector<Vertex>& vertices) {

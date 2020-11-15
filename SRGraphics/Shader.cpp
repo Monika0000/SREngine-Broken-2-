@@ -11,3 +11,23 @@ SpaRcle::Graph::Shader::Shader(Render* render, std::string name) :
 SpaRcle::Graph::Shader::~Shader()
 {
 }
+
+bool SpaRcle::Graph::Shader::Link()
+{
+	return false;
+}
+
+bool SpaRcle::Graph::Shader::Compile()
+{
+	return false;
+}
+
+bool SpaRcle::Graph::Shader::Use()
+{
+	return false;
+}
+
+bool SpaRcle::Graph::Shader::Destroy()
+{
+	return false;
+}

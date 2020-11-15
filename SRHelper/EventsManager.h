@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include "Debug.h"
+#include "SafeArray.h"
 
 namespace SpaRcle {
 	namespace Helper {
@@ -11,15 +12,15 @@ namespace SpaRcle {
 				None, Exit, Error
 			};
 		private:
-			inline static std::vector<Event>	 m_events		= std::vector<Event>();
-			inline static unsigned long			 m_count_events = 0;
+			inline static SafeArray<Event>		m_events		= SafeArray<Event>();
+			inline static unsigned long			m_count_events = 0;
 		private:
 			EventsManager()  { };
 			~EventsManager() { };
 		public:
 			static void PushEvent(Event _event) {
 				EventsManager::m_count_events++;
-				EventsManager::m_events.push_back(_event);
+				EventsManager::m_events.Add(_event);
 			}
 			static Event PopEvent() {
 				if (m_count_events > 0) {
@@ -27,7 +28,7 @@ namespace SpaRcle {
 						Event ev = m_events[m_count_events - 1];
 
 						EventsManager::m_count_events--;
-						m_events.pop_back();
+						m_events.RemoveBack();
 
 						return ev;
 					}

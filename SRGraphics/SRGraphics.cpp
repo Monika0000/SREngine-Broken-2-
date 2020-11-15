@@ -2,16 +2,22 @@
 #include "SRGraphics.h"
 #include <Debug.h>
 
+#include <EventsManager.h>
+
 #include "Window.h"
 
 using namespace SpaRcle::Helper;
 
 bool SpaRcle::Graph::SRGraphics::Create(Window* window) {
-	if (!m_IsCreate)
+	if (!m_isCreate)
 		Debug::Info("Creating SpaRcle graphics...");
 	else {
 		Debug::Error("SpaRcle graphics already create!");
 		return false;
+	}
+
+	{
+		m_window = window;
 	}
 
 	if (!m_window->Create()) {
@@ -19,13 +25,13 @@ bool SpaRcle::Graph::SRGraphics::Create(Window* window) {
 		return false;
 	}
 
-	m_IsCreate = true;
+	m_isCreate = true;
 
 	return true;
 }
 
 bool SpaRcle::Graph::SRGraphics::Init() {
-	if (!m_IsInit)
+	if (!m_isInit)
 		Debug::Info("Initializing SpaRcle graphics...");
 	else {
 		Debug::Error("SpaRcle graphics already initialize!");
@@ -37,13 +43,13 @@ bool SpaRcle::Graph::SRGraphics::Init() {
 		return false;
 	}
 
-	m_IsInit = true;
+	m_isInit = true;
 
 	return true;
 }
 
 bool SpaRcle::Graph::SRGraphics::Run() {
-	if (!m_IsRun)
+	if (!m_isRun)
 		Debug::Info("Running SpaRcle graphics...");
 	else {
 		Debug::Error("SpaRcle graphics already ran!");
@@ -55,13 +61,13 @@ bool SpaRcle::Graph::SRGraphics::Run() {
 		return false;
 	}
 
-	m_IsRun = true;
+	m_isRun = true;
 
 	return true;
 }
 
 bool SpaRcle::Graph::SRGraphics::Close() {
-	if (!m_IsClose)
+	if (!m_isClose)
 		Debug::Info("Close SpaRcle graphics...");
 	else {
 		Debug::Error("SpaRcle graphics already closed!");
@@ -70,7 +76,7 @@ bool SpaRcle::Graph::SRGraphics::Close() {
 
 	m_window->Close();
 
-	m_IsClose = true;
+	m_isClose = true;
 
 	return true;
 }

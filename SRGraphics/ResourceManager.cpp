@@ -88,7 +88,14 @@ void SpaRcle::Graph::ResourceManager::Destroy(IResource* res) {
 }
 
 void SpaRcle::Graph::ResourceManager::SetDefaultGeometryShader(Shader* shader) noexcept { m_default_geometry_shader = shader; }
-Shader* SpaRcle::Graph::ResourceManager::GetDefaultGeometryShader() noexcept { return m_default_geometry_shader; }
+Shader* SpaRcle::Graph::ResourceManager::GetDefaultGeometryShader() noexcept {
+	if (!m_default_geometry_shader) {
+		Debug::Error("ResourceManager::GetDefaultGeometryShader() : shader is nullptr!");
+		return nullptr;
+	}
+
+	return m_default_geometry_shader; 
+}
 
 std::string SpaRcle::Graph::ResourceManager::GetResourceFolder() noexcept { return m_resource_folder; }
 
@@ -187,13 +194,13 @@ Texture* SpaRcle::Graph::ResourceManager::LoadTexture(std::string name, Texture:
 
 		std::string ext = SRString::GetExtensionFromFilePath(path);
 		Image* image = nullptr;
-		/*if (ext == "png")
+		if (ext == "png")
 			image = Image::LoadPNG(path.c_str());
 		else {
 			Debug::Error("ResourceManager::LoadTexture() : failed load \""+path+"\" texture! Unknown extension!");
 			m_mutex.unlock();
 			return nullptr;
-		}*/
+		}
 
 		texture = new Texture(image, type, filter, compress);
 

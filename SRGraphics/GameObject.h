@@ -2,8 +2,8 @@
 
 namespace SpaRcle {
 	namespace Graph {
-		class GameObject
-		{
+		class GameObject {
+
 		};
 	}
 } 

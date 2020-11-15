@@ -9,6 +9,7 @@
 #include <Input.h>
 #include <SRString.h>
 #include <ResourceManager.h>
+#include <EventsManager.h>
 
 #include <GL\glew.h>
 
@@ -39,23 +40,27 @@ int main(int argcp, char* argv) {
         false,
         4
     );
-
     std::thread task = std::thread([&]() {
         std::vector<Mesh*> meshes;
 
         //std::vector<Mesh*> load = ResourceManager::LoadObj("Engine\\cube");
-        ResourceManager::LoadTexture("engine\\default.png");
+        //ResourceManager::LoadTexture("engine\\default.png");
 
         while (true) {
+            if (!SRGraphics::IsRun()) 
+                continue;
+            if (!SRGraphics::IsClose()) 
+                break;
+
             if (GetKey(KeyCode::F))
             {
-                Texture* texture = ResourceManager::LoadTexture("engine\\default.png");
-                texture->Destroy();
+                //Texture* texture = ResourceManager::LoadTexture("engine\\default.png");
+                //texture->Destroy();
 
-                /*meshes = ResourceManager::LoadModel("Engine\\cube.obj");
+                meshes = ResourceManager::LoadModel("Engine\\cube.obj");
                 for (size_t t = 0; t < meshes.size(); t++) {
                     meshes[t]->Destroy();
-                }*/
+                }
             }
             if (GetKeyDown(KeyCode::D))
                 ResourceManager::PrintMemoryDump();
@@ -67,17 +72,35 @@ int main(int argcp, char* argv) {
     if (SRGraphics::Create(window)) {
         if (SRGraphics::Init()) {
             if (SRGraphics::Run()) {
-                SRGraphics::Close();
+
             } 
-            else
-                Debug::Error("Failed running SRGraphics!");
+            else {
+                Debug::Error("Failed running SRGraphics!"); 
+                EventsManager::PushEvent(EventsManager::Event::Error);
+            }
         }
-        else
+        else {
             Debug::Error("Failed initializing SRGraphics!");
+            EventsManager::PushEvent(EventsManager::Event::Error);
+        }
     }
-    else
+    else {
         Debug::Error("Failed creating SRGraphics!");
+        EventsManager::PushEvent(EventsManager::Event::Error);
+    }
+
+    Debug::System("All systems ran successfully!");
     
+    while (true) {
+        EventsManager::Event ev = EventsManager::PopEvent();
+        if (ev == EventsManager::Event::Error) {
+            break;
+        }
+        else if (ev == EventsManager::Event::Exit) {
+            break;
+        }
+    }
+
     if (task.joinable()) task.join();
 
     ResourceManager::Stop();

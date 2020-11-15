@@ -49,6 +49,14 @@ namespace SpaRcle {
                 m_lock.unlock();
                 return t;
             }
+            
+            void RemoveBack() {
+                m_lock.lock();
+                assert(m_size == 0);
+                m_elements.pop_back();
+                m_size--;
+                m_lock.unlock();
+            }
             void Remove(size_t index) {
                 m_lock.lock();
                 assert(index >= m_size);

@@ -81,6 +81,9 @@
     <ClInclude Include="Image.h">
       <Filter>Resources\Graph</Filter>
     </ClInclude>
+    <ClInclude Include="IFramework.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
