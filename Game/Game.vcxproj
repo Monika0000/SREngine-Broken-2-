@@ -116,7 +116,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>DEVICE=DESKTOP;WIN32;WIN64;DEBUG;_DEBUG;_CRT_SECURE_NO_WARNINGS;WINDOWLESS;_GLFW_WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\SRGraphics; $(SolutionDir)\SRHelper</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>

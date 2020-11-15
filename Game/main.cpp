@@ -3,13 +3,14 @@
 #define WINDOWLESS 1
 #define _CRT_SECURE_NO_WARNINGS
 
-#include <Debug.h>
 #include <SRGraphics.h>
+#include <Debug.h>
 #include <SRFile.h>
-#include <Window.h>
-#include <ResourceManager.h>
 #include <Input.h>
 #include <SRString.h>
+#include <ResourceManager.h>
+
+#include <GL\glew.h>
 
 using namespace SpaRcle::Helper;
 using namespace SpaRcle::Graph;
@@ -43,18 +44,23 @@ int main(int argcp, char* argv) {
         std::vector<Mesh*> meshes;
 
         //std::vector<Mesh*> load = ResourceManager::LoadObj("Engine\\cube");
+        ResourceManager::LoadTexture("engine\\default.png");
 
         while (true) {
             if (GetKey(KeyCode::F))
             {
-                meshes = ResourceManager::LoadObj("Engine\\cube");
+                Texture* texture = ResourceManager::LoadTexture("engine\\default.png");
+                texture->Destroy();
+
+                /*meshes = ResourceManager::LoadModel("Engine\\cube.obj");
                 for (size_t t = 0; t < meshes.size(); t++) {
-                    //Debug::Log(std::to_string(meshes[t]->GetCountVertices()));
                     meshes[t]->Destroy();
-                }
+                }*/
             }
             if (GetKeyDown(KeyCode::D))
                 ResourceManager::PrintMemoryDump();
+            if (GetKeyDown(KeyCode::T))
+                ResourceManager::PrintTexturesDump();
         }
     });
 

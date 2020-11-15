@@ -165,7 +165,7 @@ namespace SpaRcle {
 
 			m_file_name = name;
 
-			if (Debug::GetLevel() >= Debug::Level::Hight)
+			if (Debug::GetLevel() >= Debug::Level::High)
 				Debug::Log("ObjLoader::Load() : loading obj model \"" + m_file_name + "\"");
 
 			m_temp_meshes.clear();

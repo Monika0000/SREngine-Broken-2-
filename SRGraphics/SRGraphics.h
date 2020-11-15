@@ -1,5 +1,6 @@
 #pragma once
-
+#include "Window.h"
+#include "Render.h"
 
 namespace SpaRcle {
 	namespace Graph {

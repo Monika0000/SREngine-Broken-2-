@@ -23,9 +23,10 @@ namespace SpaRcle {
                 return val;
             }
 
+            /* !UNSAFE! */
             template <typename V> T* Find(std::function<bool(const T&, const V&)> f, V v) {
-                T* res = nullptr;
                 m_lock.lock();
+                T* res = nullptr;
                 for (m_t = 0; m_t < m_size; m_t++) {
                     if (f(m_elements[m_t], v)) {
                         res = &m_elements[m_t];

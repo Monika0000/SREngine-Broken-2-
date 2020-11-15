@@ -78,6 +78,9 @@
     <ClInclude Include="Texture.h">
       <Filter>Resources\Graph</Filter>
     </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>Resources\Graph</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">

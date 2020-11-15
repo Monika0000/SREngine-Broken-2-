@@ -46,7 +46,7 @@ namespace SpaRcle {
                 m_lock.unlock();
             }
 
-            T* Find(K key) {
+            /*T* Find(K key) {
                 m_lock.lock();
                 auto find = m_elements.find(key);
                 T* res = nullptr;
@@ -54,6 +54,28 @@ namespace SpaRcle {
                     res = &find->second;
                 m_lock.unlock();
                 return res;
+            }*/
+
+            /* T* Find(K key) {
+                m_lock.lock();
+                typename std::map<K, T>::iterator it = m_elements.find(key);
+                //T* res = &it->second;
+                //if (it != m_elements.end()) {
+                //    res = &it->second;
+                //}
+                m_lock.unlock();
+                return nullptr;
+            }*/
+
+            void ForEach(std::function<bool(T&)> action) {
+                m_lock.lock();
+                auto it = m_elements.begin();
+                for (it; it != m_elements.end(); it++)
+                {
+                    if (action(it->second))
+                        break;
+                }
+                m_lock.unlock();
             }
         };
     }

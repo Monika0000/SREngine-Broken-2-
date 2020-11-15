@@ -9,7 +9,7 @@ namespace SpaRcle {
 		class Debug {
 		public:
 			enum class Level {
-				None = 0, Low = 1, Medium = 2, Hight = 3, Full = 4
+				None = 0, Low = 1, Medium = 2, High = 3, Full = 4
 			};
 
 			enum class ConsoleColor {
@@ -45,7 +45,7 @@ namespace SpaRcle {
 			inline static std::string	m_log_path					= "";
 			inline static std::ofstream m_file						= std::ofstream();
 		private:
-			static inline Level			m_level						= Level::Full;
+			static inline Level			m_level						= Level::Low;
 			static inline void InitColorTherme() {
 				if (!m_ColorThermeIsEnabled)
 					system("color 70");

@@ -16,6 +16,7 @@ SpaRcle::Graph::Mesh::~Mesh() {
 SpaRcle::Graph::Mesh* SpaRcle::Graph::Mesh::Copy() {
 	Mesh* copy = new Mesh(m_shader, nullptr, "");
 	copy->m_res_id = m_res_id;
+	//copy->m
 	return copy;
 }
 
@@ -28,7 +29,7 @@ bool SpaRcle::Graph::Mesh::Destroy() {
 	if (m_isDestroy)
 		return false;
 
-	if (Debug::GetLevel() >= Debug::Level::Hight)
+	if (Debug::GetLevel() >= Debug::Level::High)
 		Debug::Log("Mesh::Destroy() : destroying \"" + std::string(m_res_name) + "\" mesh...");
 
 	m_isDestroy = true;
